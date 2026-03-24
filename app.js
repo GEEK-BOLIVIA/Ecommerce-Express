@@ -9,5 +9,7 @@ app.use(express.static('public')); // Para servir archivos estáticos (CSS, JS, 
 
 // Rutas (las iremos agregando aquí)
 // app.use('/productos', productosRouter);
+const usuarioRoutes = require('./src/routes/usuarioRoutes');
+app.use('/api/usuarios', usuarioRoutes);
 
 module.exports = app;
