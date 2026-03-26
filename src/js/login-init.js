@@ -1,5 +1,11 @@
-import { supabase } from './config/supabaseClient.js';
+import { createClient } from '@supabase/supabase-js';
 import { authService } from './services/authService.js';
+
+// ✅ Supabase se inicializa aquí directamente desde npm
+const supabase = createClient(
+    import.meta.env.VITE_SUPABASE_URL,
+    import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 let redireccionEjecutada = false;
 
@@ -7,9 +13,13 @@ async function iniciarFlujoAcceso(session) {
     if (redireccionEjecutada) return;
     try {
         redireccionEjecutada = true;
+        console.log('1. Iniciando flujo, token:', session.access_token?.substring(0, 20));
+
         const resultado = await authService.obtenerPerfil(session.access_token);
+        console.log('2. Resultado perfil:', resultado);
 
         if (!resultado.exito || resultado.tipo === 'denegado') {
+            console.log('3. Acceso denegado, cerrando sesión');
             await supabase.auth.signOut();
             alert('Acceso denegado');
             window.location.href = '/';
@@ -17,6 +27,8 @@ async function iniciarFlujoAcceso(session) {
         }
 
         const perfil = resultado.perfil;
+        console.log('4. Perfil obtenido:', perfil);
+
         sessionStorage.setItem('usuario_rol', perfil.rol);
         sessionStorage.setItem('usuario_nombre', perfil.nombres);
         sessionStorage.setItem('usuario_id', perfil.id);
@@ -24,11 +36,12 @@ async function iniciarFlujoAcceso(session) {
 
         const camposRequeridos = ['ci', 'nombres', 'celular'];
         const incompleto = camposRequeridos.some(c => !perfil[c]);
+        console.log('5. Redirigiendo a:', incompleto ? '/registrar-usuario' : '/administracion');
 
         window.location.href = incompleto ? '/registrar-usuario' : '/administracion';
 
     } catch (error) {
-        console.error('Error en flujo de acceso:', error);
+        console.error('ERROR en flujo de acceso:', error);
         redireccionEjecutada = false;
     }
 }

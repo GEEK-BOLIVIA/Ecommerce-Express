@@ -8,38 +8,39 @@
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <style type="text/tailwindcss">
+
+    <!-- ✅ Reemplaza todos los CDNs -->
+    <script type="module" src="/src/main.js"></script>
+
+    <style>
         :root {
-            --primary-color: #3b82f6; 
+            --primary-color: #3b82f6;
             --primary-light: #eff6ff;
         }
+
         .custom-scrollbar::-webkit-scrollbar {
             width: 4px;
         }
+
         .custom-scrollbar::-webkit-scrollbar-track {
             background: transparent;
         }
+
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background-color: #cbd5e1;
             border-radius: 20px;
         }
-        details > summary {
+
+        details>summary {
             list-style: none;
         }
-        details > summary::-webkit-details-marker {
+
+        details>summary::-webkit-details-marker {
             display: none;
         }
-        /* Estilo para que el iframe ocupe todo el espacio sin bordes */
+
         .content-frame {
             width: 100%;
             height: 100%;
@@ -340,12 +341,12 @@
             </div>
         </main>
     </div>
-    <script type="module" src="js/navigation.js"></script>
-    <script type="module" src="js/controllers/categoriasController.js"></script>
-    <script type="module" src="js/controllers/productoController.js"></script>
-    <script type="module" src="js/controllers/carruselController.js"></script>
-    <script type="module" src="js/controllers/sucursalController.js"></script>
-    
+    <script type="module" src="/src/js/navigation.js"></script>
+    <script type="module" src="/src/js/controllers/categoriasController.js"></script>
+    <script type="module" src="/src/js/controllers/productoController.js"></script>
+    <script type="module" src="/src/js/controllers/carruselController.js"></script>
+    <script type="module" src="/src/js/controllers/sucursalController.js"></script>
+
 </body>
 
 </html>

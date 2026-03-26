@@ -7,13 +7,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public', { extensions: ['html'] }));
 
-// Rutas después
-app.get('/api/config', (req, res) => {
-    res.json({
-        supabaseUrl: process.env.SUPABASE_URL,
-        supabaseAnonKey: process.env.SUPABASE_ANON_KEY
-    });
-});
 
 const usuarioRoutes = require('./src/routes/usuarioRoutes');
 const sucursalRoutes = require('./src/routes/sucursalRoutes');
@@ -24,6 +17,9 @@ const configuracionColumnasRoutes = require('./src/routes/configuracionColumnasR
 const configuracionFrontendRoutes = require('./src/routes/configuracionFrontendRoutes');
 const departamentoRoutes = require('./src/routes/departamentoRoutes');
 const direccionRoutes = require('./src/routes/direccionRoutes');
+const importacionRoutes = require('./src/routes/importacionRoutes');
+const paletaColorRoutes = require('./src/routes/paletaColorRoutes');
+const storageRoutes = require('./src/routes/storageRoutes');
 
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/sucursales', sucursalRoutes);
@@ -34,5 +30,8 @@ app.use('/api/configuracion-columnas', configuracionColumnasRoutes);
 app.use('/api/configuracion-frontend', configuracionFrontendRoutes);
 app.use('/api/departamentos', departamentoRoutes);
 app.use('/api/direcciones', direccionRoutes);
+app.use('/api/importacion', importacionRoutes);
+app.use('/api/paletas', paletaColorRoutes);
+app.use('/api/storage', storageRoutes);
 
 module.exports = app;
