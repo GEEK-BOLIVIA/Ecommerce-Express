@@ -1,81 +1,59 @@
-const supabase = require('../config/supabaseClient');
+const { getSupabaseAdmin } = require('../config/supabaseClient');
 
 const departamentoModel = {
 
     async obtenerTodos() {
-        try {
-            const { data, error } = await supabase
-                .from('departamentos')
-                .select('*')
-                .order('nombre', { ascending: true });
-
-            if (error) throw error;
-            return data;
-        } catch (error) {
-            console.error('Error al obtener departamentos:', error.message);
-            return [];
-        }
+        const supabaseAdmin = getSupabaseAdmin();
+        const { data, error } = await supabaseAdmin
+            .from('departamentos')
+            .select('*')
+            .order('nombre', { ascending: true });
+        if (error) throw error;
+        return data;
     },
 
     async obtenerPorId(id) {
-        try {
-            const { data, error } = await supabase
-                .from('departamentos')
-                .select('*')
-                .eq('id', id)
-                .single();
-
-            if (error) throw error;
-            return data;
-        } catch (error) {
-            console.error(`Error al obtener departamento ${id}:`, error.message);
-            return null;
-        }
+        const supabaseAdmin = getSupabaseAdmin();
+        const { data, error } = await supabaseAdmin
+            .from('departamentos')
+            .select('*')
+            .eq('id', id)
+            .single();
+        if (error) throw error;
+        return data;
     },
 
     async crear(datos) {
-        try {
-            const { nombre, slug, lat, lng, zoom_sugerido } = datos;
-            const { data, error } = await supabase
-                .from('departamentos')
-                .insert([{ nombre, slug, lat, lng, zoom_sugerido }])
-                .select();
-
-            if (error) throw error;
-            return { exito: true, data: data[0] };
-        } catch (error) {
-            return { exito: false, mensaje: error.message };
-        }
+        const supabaseAdmin = getSupabaseAdmin();
+        const { nombre, slug, lat, lng, zoom_sugerido } = datos;
+        const { data, error } = await supabaseAdmin
+            .from('departamentos')
+            .insert([{ nombre, slug, lat, lng, zoom_sugerido }])
+            .select();
+        if (error) throw error;
+        return data[0];
     },
 
     async actualizar(id, datos) {
-        try {
-            const { nombre, slug, lat, lng, zoom_sugerido } = datos;
-            const { data, error } = await supabase
-                .from('departamentos')
-                .update({ nombre, slug, lat, lng, zoom_sugerido })
-                .eq('id', id)
-                .select();
-
-            if (error) throw error;
-            return { exito: true, data: data[0] };
-        } catch (error) {
-            return { exito: false, mensaje: error.message };
-        }
+        const supabaseAdmin = getSupabaseAdmin();
+        const { nombre, slug, lat, lng, zoom_sugerido } = datos;
+        const { data, error } = await supabaseAdmin
+            .from('departamentos')
+            .update({ nombre, slug, lat, lng, zoom_sugerido })
+            .eq('id', id)
+            .select();
+        if (error) throw error;
+        return data[0];
     },
 
     async eliminar(id) {
-        try {
-            const { error } = await supabase
-                .from('departamentos')
-                .delete()
-                .eq('id', id);
-
-            if (error) throw error;
-            return { exito: true };
-        } catch (error) {
-            return { exito: false, mensaje: error.message };
-        }
+        const supabaseAdmin = getSupabaseAdmin();
+        const { error } = await supabaseAdmin
+            .from('departamentos')
+            .delete()
+            .eq('id', id);
+        if (error) throw error;
+        return true;
     }
 };
 

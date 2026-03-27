@@ -1,13 +1,12 @@
-require('dotenv').config();
 const express = require('express');
 const app = express();
 
-// Middlewares primero
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public', { extensions: ['html'] }));
 
-
+// Rutas
 const usuarioRoutes = require('./src/routes/usuarioRoutes');
 const sucursalRoutes = require('./src/routes/sucursalRoutes');
 const categoriasRoutes = require('./src/routes/categoriasRoutes');
@@ -33,5 +32,14 @@ app.use('/api/direcciones', direccionRoutes);
 app.use('/api/importacion', importacionRoutes);
 app.use('/api/paletas', paletaColorRoutes);
 app.use('/api/storage', storageRoutes);
+
+// Error handler global — debe ir al final siempre
+app.use((err, req, res, next) => {
+    console.error(`[Error] ${req.method} ${req.path}:`, err.message);
+    res.status(err.status || 500).json({
+        exito: false,
+        mensaje: err.message || 'Error interno del servidor'
+    });
+});
 
 module.exports = app;

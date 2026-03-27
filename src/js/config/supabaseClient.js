@@ -1,6 +1,26 @@
-import { createClient } from '@supabase/supabase-js';
+const { createClient } = require('@supabase/supabase-js');
 
-export const supabase = createClient(
-    import.meta.env.VITE_SUPABASE_URL,
-    import.meta.env.VITE_SUPABASE_ANON_KEY
-);
+let supabase;
+let supabaseAdmin;
+
+const getSupabase = () => {
+    if (!supabase) {
+        supabase = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_ANON_KEY
+        );
+    }
+    return supabase;
+};
+
+const getSupabaseAdmin = () => {
+    if (!supabaseAdmin) {
+        supabaseAdmin = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_SERVICE_KEY
+        );
+    }
+    return supabaseAdmin;
+};
+
+module.exports = { getSupabase, getSupabaseAdmin };

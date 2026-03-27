@@ -1,7 +1,3 @@
-import { eliminar } from "../../../src/controllers/usuarioController";
-import { obtenerTodas } from "../../../src/models/categoriasModel";
-import { actualizar, obtenerPorId } from "../../../src/models/usuarioModel";
-
 const API_URL = '/api';
 
 export const sucursalService = {
@@ -17,19 +13,19 @@ export const sucursalService = {
         };
     },
 
-    async obtenerTodas() {
+    async getAll() {
         const res = await fetch(`${API_URL}/sucursales`, { headers: this._headers() });
         const json = await res.json();
         return json.data || [];
     },
 
-    async obtenerPorId(id) {
+    async getById(id) {
         const res = await fetch(`${API_URL}/sucursales/${id}`, { headers: this._headers() });
         const json = await res.json();
         return json.data || null;
     },
 
-    async crear(datos) {
+    async create(datos) {
         const res = await fetch(`${API_URL}/sucursales`, {
             method: 'POST',
             headers: this._headers(),
@@ -38,7 +34,7 @@ export const sucursalService = {
         return await res.json();
     },
 
-    async actualizar(id, datos) {
+    async update(id, datos) {
         const res = await fetch(`${API_URL}/sucursales/${id}`, {
             method: 'PUT',
             headers: this._headers(),
@@ -47,7 +43,7 @@ export const sucursalService = {
         return await res.json();
     },
 
-    async eliminar(id) {
+    async delete(id) {
         const res = await fetch(`${API_URL}/sucursales/${id}`, {
             method: 'DELETE',
             headers: this._headers()
