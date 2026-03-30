@@ -1,12 +1,10 @@
 const express = require('express');
 const app = express();
 
-// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public', { extensions: ['html'] }));
 
-// Rutas
 const usuarioRoutes = require('./src/routes/usuarioRoutes');
 const sucursalRoutes = require('./src/routes/sucursalRoutes');
 const categoriasRoutes = require('./src/routes/categoriasRoutes');
