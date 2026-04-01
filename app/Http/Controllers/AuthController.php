@@ -16,22 +16,26 @@ class AuthController extends Controller
      */
     public function handleSupabaseLogin(Request $request)
     {
-        // 1. Validar datos de entrada (Lo mantenemos aquí o en un FormRequest)
         $validated = $request->validate([
             'id' => 'required',
             'email' => 'required|email'
         ]);
 
-        // 2. Transformar el Request en un DTO de Entrada
+        // Si ya está autenticado, simplemente devolver éxito
+        if (Auth::check()) {
+            return response()->json([
+                'success' => true,
+                'redirect' => route('admin.dashboard')
+            ]);
+        }
+
         $input = new LoginInputDTO(
             id: $validated['id'],
             email: $validated['email']
         );
 
-        // 3. Buscar al usuario usando los datos del DTO
         $user = User::where('correo_electronico', $input->email)->first();
 
-        // 4. Validaciones de seguridad (Lógica de Negocio)
         if (!$user) {
             return response()->json(['error' => 'Usuario no registrado en Farmacia Cosmos.'], 403);
         }
@@ -44,12 +48,9 @@ class AuthController extends Controller
             return response()->json(['error' => 'Tu cuenta se encuentra inactiva.'], 403);
         }
 
-        // 5. ÉXITO: Iniciar sesión en Laravel
         Auth::login($user);
         $request->session()->regenerate();
-
-        // Opcional: Podrías devolver los datos del usuario formateados con el OutputDTO
-        // $userDto = UserOutputDTO::fromModel($user);
+        $request->session()->save();
 
         return response()->json([
             'success' => true,

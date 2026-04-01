@@ -11,7 +11,6 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Registramos el guardián de seguridad aquí
         $middleware->alias([
             'is_owner' => \App\Http\Middleware\CheckOwnerRole::class,
         ]);
