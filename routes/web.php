@@ -24,13 +24,14 @@ Route::post('/api/auth/supabase-verify', [AuthController::class, 'handleSupabase
 Route::middleware(['web', 'is_owner'])->prefix('panel')->group(function () {
 
     Route::get('/dashboard', function () {
-        return view('admin.dashboard');  // ← ya apunta al archivo nuevo
+        return view('admin.dashboard');
     })->name('admin.dashboard');
 
     Route::prefix('inventario')->group(function () {
 
-        Route::get('/categorias', CategoryTable::class)
-            ->name('admin.inventory.categories');
+        Route::get('/categorias', function () {
+            return view('admin.inventory.categories');
+        })->name('admin.inventory.categories');
 
         Route::get('/categorias/nueva', function () {
             return "Formulario de Nueva Categoría - En desarrollo";
@@ -45,4 +46,6 @@ Route::middleware(['web', 'is_owner'])->prefix('panel')->group(function () {
 });
 
 // 4. Ruta de Bypass para debug
-Route::get('/test-categorias', CategoryTable::class)->middleware(['web']);
+Route::get('/test-categorias', function () {
+    return view('admin.inventory.categories');
+})->middleware(['web']);

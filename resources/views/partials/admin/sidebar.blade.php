@@ -32,6 +32,14 @@
                     [&::-webkit-scrollbar-thumb]:bg-slate-200
                     [&::-webkit-scrollbar-thumb]:rounded-full">
 
+            {{-- ── DASHBOARD ── --}}
+            <a href="{{ route('admin.dashboard') }}"
+                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-slate-500 hover:bg-blue-50 hover:text-blue-600 transition-all
+                {{ request()->routeIs('admin.dashboard') ? 'bg-blue-50 text-blue-600 font-semibold' : '' }}">
+                <span class="material-symbols-outlined text-[20px] shrink-0">dashboard</span>
+                <p class="text-sm font-medium sidebar-show whitespace-nowrap">Dashboard</p>
+            </a>
+
             {{-- ── INVENTARIO ── --}}
             <div class="flex flex-col gap-0.5">
                 <p
@@ -69,30 +77,28 @@
                 </details>
 
                 {{-- Categorías --}}
-                <details class="group/cat" {{ request()->routeIs('admin.inventory.categories*') ? 'open' : '' }}>
-                    <summary
+                <div class="flex flex-col gap-0.5">
+                    <a href="{{ route('admin.inventory.categories') }}"
                         class="flex items-center justify-between rounded-lg px-3 py-2.5 text-slate-500
-                        hover:bg-blue-50 hover:text-blue-600 transition-all cursor-pointer list-none
-                        {{ request()->routeIs('admin.inventory.categories*') ? 'bg-blue-50 text-blue-600' : '' }}">
-                        <a href="{{ route('admin.inventory.categories') }}" wire:navigate
-                            class="flex items-center gap-3 flex-1 min-w-0" onclick="event.stopPropagation()">
+                        hover:bg-blue-50 hover:text-blue-600 transition-all
+                        {{ request()->routeIs('admin.inventory.categories') && !request()->routeIs('admin.inventory.categories.create') ? 'bg-blue-50 text-blue-600' : '' }}">
+                        <div class="flex items-center gap-3 min-w-0">
                             <span class="material-symbols-outlined text-[20px] shrink-0">category</span>
                             <p class="text-sm font-medium sidebar-show whitespace-nowrap">Categorías</p>
-                        </a>
-                        <span
-                            class="material-symbols-outlined text-[16px] shrink-0 transition-transform group-open/cat:rotate-180 sidebar-show ml-2">
-                            expand_more
+                        </div>
+                        <span class="material-symbols-outlined text-[16px] shrink-0 sidebar-show ml-2">
+                            chevron_right
                         </span>
-                    </summary>
-                    <div class="flex flex-col gap-0.5 mt-0.5 ml-4 pl-3 border-l-2 border-slate-100 sidebar-show">
-                        <a href="{{ route('admin.inventory.categories.create') }}" wire:navigate
+                    </a>
+                    <div class="flex flex-col gap-0.5 mt-0.5 ml-4 pl-3 border-l-2 border-slate-100 sidebar-show {{ request()->routeIs('admin.inventory.categories*') ? '' : 'hidden' }}">
+                        <a href="{{ route('admin.inventory.categories.create') }}"
                             class="flex items-center gap-2 rounded-lg px-3 py-1.5 text-[10px] font-bold uppercase transition-all whitespace-nowrap
                             {{ request()->routeIs('admin.inventory.categories.create') ? 'text-blue-600' : 'text-slate-400 hover:text-blue-500' }}">
                             <span class="material-symbols-outlined text-[15px] shrink-0">add_circle</span>
                             Nueva Categoría
                         </a>
                     </div>
-                </details>
+                </div>
 
                 {{-- Subcategorías --}}
                 <details class="group/subcat">

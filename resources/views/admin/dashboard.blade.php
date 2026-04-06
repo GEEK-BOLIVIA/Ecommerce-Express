@@ -72,7 +72,7 @@
             <h2 class="mb-4 text-sm font-bold uppercase tracking-widest text-slate-400">Accesos rápidos</h2>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 
-                <a href="{{ route('admin.inventory.categories') }}" wire:navigate
+                <a href="{{ route('admin.inventory.categories') }}"
                     class="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all hover:border-blue-200 hover:shadow-md">
                     <div
                         class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-500 transition-colors group-hover:bg-blue-500 group-hover:text-white">
@@ -86,7 +86,7 @@
                         class="material-symbols-outlined ml-auto text-[18px] text-slate-300 group-hover:text-blue-500">arrow_forward</span>
                 </a>
 
-                <a href="{{ route('admin.inventory.categories.create') }}" wire:navigate
+                <a href="{{ route('admin.inventory.categories.create') }}"
                     class="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all hover:border-blue-200 hover:shadow-md">
                     <div
                         class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-500 transition-colors group-hover:bg-blue-500 group-hover:text-white">
@@ -100,7 +100,7 @@
                         class="material-symbols-outlined ml-auto text-[18px] text-slate-300 group-hover:text-blue-500">arrow_forward</span>
                 </a>
 
-                <a href="{{ route('admin.inventory.products') }}" wire:navigate
+                <a href="{{ route('admin.inventory.products') }}"
                     class="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all hover:border-blue-200 hover:shadow-md">
                     <div
                         class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-500 transition-colors group-hover:bg-blue-500 group-hover:text-white">
