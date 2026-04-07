@@ -22,7 +22,6 @@
                         <th class="px-6 py-5 text-[11px] font-bold text-slate-400 uppercase min-w-[200px] text-center">
                             Vinculado a</th>
                     @endif
-                    <th class="px-6 py-5 text-[11px] font-bold text-slate-400 uppercase text-center w-32">Estado</th>
                     <th class="px-6 py-5 text-[11px] font-bold text-slate-400 uppercase text-center w-52">Acciones</th>
                 </tr>
             </thead>
@@ -30,13 +29,9 @@
                 @forelse($datos as $index => $item)
                     <tr class="hover:bg-blue-50/40 transition-colors group">
 
-                        {{-- N° con indicador de estado --}}
+                        {{-- N° --}}
                         <td class="px-6 py-4 text-sm text-slate-400 font-bold text-center border-r border-slate-50/50">
-                            <div class="flex items-center justify-center gap-3">
-                                <span
-                                    class="w-2.5 h-2.5 rounded-full {{ $item->esVisible ? 'bg-emerald-500' : 'bg-slate-300' }} ring-4 ring-white shadow-sm"></span>
-                                {{ $datos->firstItem() + $index }}
-                            </div>
+                            {{ $datos->firstItem() + $index }}
                         </td>
 
                         {{-- Nombre --}}
@@ -55,14 +50,6 @@
                                 </span>
                             </td>
                         @endif
-
-                        {{-- Estado --}}
-                        <td class="px-6 py-4 text-center">
-                            <span
-                                class="px-2.5 py-1 rounded-full text-[10px] font-black {{ $item->esVisible ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-400' }}">
-                                {{ $item->estadoLabel }}
-                            </span>
-                        </td>
 
                         {{-- Acciones --}}
                         <td class="px-6 py-4">
@@ -87,7 +74,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="px-6 py-12 text-center text-slate-400 italic text-sm">
+                        <td colspan="{{ $mostrarColumnaVinculo ? '4' : '3' }}" class="px-6 py-12 text-center text-slate-400 italic text-sm">
                             No se encontraron resultados.
                         </td>
                     </tr>

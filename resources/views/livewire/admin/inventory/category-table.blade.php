@@ -118,24 +118,6 @@
                         </div>
                     @endif
 
-                    {{-- Toggle visible --}}
-                    <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                        <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest">Estado</span>
-                        <label class="flex items-center gap-3 cursor-pointer">
-                            <span class="text-sm font-bold {{ $visible ? 'text-emerald-600' : 'text-slate-400' }}">
-                                {{ $visible ? 'VISIBLE' : 'OCULTO' }}
-                            </span>
-                            <div class="relative">
-                                <input type="checkbox" wire:model="visible" class="sr-only peer">
-                                <div
-                                    class="w-11 h-6 bg-slate-200 peer-checked:bg-emerald-500 rounded-full transition-all peer-focus:ring-2 peer-focus:ring-emerald-300">
-                                </div>
-                                <div
-                                    class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-all peer-checked:translate-x-5">
-                                </div>
-                            </div>
-                        </label>
-                    </div>
                 </div>
 
                 {{-- Botones --}}

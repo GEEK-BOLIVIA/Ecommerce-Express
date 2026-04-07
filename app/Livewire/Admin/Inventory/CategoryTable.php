@@ -25,7 +25,6 @@ class CategoryTable extends Component
 
     // --- Campos del formulario ---
     public string $nombre   = '';
-    public bool   $visible  = true;
     public ?int   $id_padre = null;
 
     // Resetear página al buscar o cambiar tab
@@ -63,7 +62,6 @@ class CategoryTable extends Component
 
         $this->editingId  = $id;
         $this->nombre     = $category->nombre;
-        $this->visible    = $category->esVisible;
         $this->id_padre   = $category->nombrePadre !== '—' ? $id : null;
         $this->pestanaActiva = $category->nombrePadre !== '—' ? 'subcategorias' : 'categorias';
         $this->showModal  = true;
@@ -90,7 +88,7 @@ class CategoryTable extends Component
 
         $dto = CategoryInputDTO::fromLivewire([
             'nombre'   => $this->nombre,
-            'visible'  => $this->visible,
+            'visible'  => true,
             'id_padre' => $this->id_padre,
         ]);
 
@@ -116,7 +114,6 @@ class CategoryTable extends Component
     {
         $this->editingId  = null;
         $this->nombre     = '';
-        $this->visible    = true;
         $this->id_padre   = null;
         $this->resetValidation();
     }
