@@ -16,8 +16,8 @@ class LoginInputDTO
     public static function fromSupabase(object $supabaseUser): self
     {
         return new self(
-            id: $supabaseUser->id,
-            email: $supabaseUser->email
+            id: $data['id'] ?? '',
+            email: $data['email'] ?? ''
         );
     }
 }

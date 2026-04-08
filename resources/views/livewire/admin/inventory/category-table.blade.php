@@ -1,4 +1,4 @@
-<div x-data="{ confirmarEliminar: null, idEliminar: null }">
+<div x-data="{ confirmarEliminar: null, idEliminar: null, tabActiva: @entangle('pestanaActiva') }">
 
     {{-- NOTIFICACIONES --}}
     <div x-data="{ show: false, mensaje: '', tipo: 'exito' }"
@@ -24,15 +24,15 @@
 
             {{-- Tabs --}}
             <div class="flex gap-2 bg-slate-200/50 p-1 rounded-2xl w-fit border border-slate-200/60">
-                <button wire:click="cambiarTab('categorias')"
-                    class="flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300
-                        {{ $pestanaActiva === 'categorias' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700' }}">
+                <button @click="tabActiva = 'categorias'"
+                    :class="tabActiva === 'categorias' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'"
+                    class="flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300">
                     <span class="material-symbols-outlined text-[20px]">folder</span>
                     Categorías
                 </button>
-                <button wire:click="cambiarTab('subcategorias')"
-                    class="flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300
-                        {{ $pestanaActiva === 'subcategorias' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700' }}">
+                <button @click="tabActiva = 'subcategorias'"
+                    :class="tabActiva === 'subcategorias' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'"
+                    class="flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300">
                     <span class="material-symbols-outlined text-[20px]">account_tree</span>
                     Subcategorías
                 </button>
@@ -57,7 +57,12 @@
         </div>
 
         {{-- SECCIÓN CATEGORÍAS PADRE --}}
-        <div class="{{ $pestanaActiva === 'categorias' ? 'block' : 'hidden' }}">
+        <div x-show="tabActiva === 'categorias'" x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 transform -translate-y-2"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform -translate-y-2">
             @include('livewire.admin.inventory.partials.category-section', [
                 'titulo' => 'Categorías',
                 'datos' => $padres,
@@ -67,7 +72,12 @@
         </div>
 
         {{-- SECCIÓN SUBCATEGORÍAS --}}
-        <div class="{{ $pestanaActiva === 'subcategorias' ? 'block' : 'hidden' }}">
+        <div x-show="tabActiva === 'subcategorias'" x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 transform -translate-y-2"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform -translate-y-2">
             @include('livewire.admin.inventory.partials.category-section', [
                 'titulo' => 'Subcategorías',
                 'datos' => $hijos,
