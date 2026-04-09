@@ -15,13 +15,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @livewireStyles
     @stack('styles')
 </head>
 
 <body class="bg-slate-50 text-slate-800 font-display antialiased overflow-hidden selection:bg-blue-100">
     <div class="flex h-screen w-full">
-        @include('partials.admin.sidebar')
+        @include('admin.sidebar')
 
         <main id="main-content" class="flex-1 flex flex-col overflow-hidden h-full">
             <div id="content-area" class="flex-1 overflow-y-auto w-full h-full bg-white/50 backdrop-blur-sm">

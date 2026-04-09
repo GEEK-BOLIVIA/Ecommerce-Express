@@ -10,7 +10,7 @@ class CategoryInputDTO
         public readonly ?int $id_padre = null
     ) {}
 
-    public static function fromLivewire(array $data): self
+    public static function fromRequest(array $data): self
     {
         return new self(
             nombre: trim($data['nombre']),

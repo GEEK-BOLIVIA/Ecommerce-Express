@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Livewire\Admin\Inventory\CategoryTable;
+use App\Http\Controllers\Admin\CategoryController; // Importamos tu nuevo controlador
 
 // 1. Redirección inicial
 Route::get('/', function () {
@@ -11,7 +12,7 @@ Route::get('/', function () {
 
 // 2. Autenticación (Pública)
 Route::get('/login', function () {
-    if (auth()->check()) {
+    if (Auth::check()) { // Cambiamos auth()->check() por Auth::check()
         return redirect()->route('admin.dashboard');
     }
     return view('auth.login');
@@ -27,16 +28,17 @@ Route::middleware(['web', 'is_owner'])->prefix('panel')->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
+    // Módulo de Inventario
     Route::prefix('inventario')->group(function () {
 
-        Route::get('/categorias', function () {
-            return view('admin.inventory.categories');
-        })->name('admin.inventory.categories');
-
-        Route::get('/categorias/nueva', function () {
-            return "Formulario de Nueva Categoría - En desarrollo";
-        })->name('admin.inventory.categories.create');
-
+        // --- RUTAS DE CATEGORÍAS (Usando tu nuevo controlador) ---
+        Route::get('/categorias', [CategoryController::class, 'index'])->name('admin.inventory.categories');
+        Route::post('/categorias', [CategoryController::class, 'store'])->name('admin.inventory.categories.store');
+        Route::put('/categorias/{id}', [CategoryController::class, 'update'])->name('admin.inventory.categories.update');
+        Route::delete('/categorias/lote', [CategoryController::class, 'destroyBatch'])->name('admin.inventory.categories.batch');
+        Route::delete('/categorias/{id}', [CategoryController::class, 'destroy'])->name('admin.inventory.categories.destroy');
+        Route::get('/categorias/crear', [CategoryController::class, 'create'])->name('admin.inventory.categories.create');
+        // --- RUTAS DE PRODUCTOS ---
         Route::get('/productos', function () {
             return "Módulo de Productos - Pronto";
         })->name('admin.inventory.products');
@@ -45,7 +47,5 @@ Route::middleware(['web', 'is_owner'])->prefix('panel')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-// 4. Ruta de Bypass para debug
-Route::get('/test-categorias', function () {
-    return view('admin.inventory.categories');
-})->middleware(['web']);
+// 4. Ruta de Bypass para debug (Actualizada para probar el controlador)
+Route::get('/test-categorias', [CategoryController::class, 'index'])->middleware(['web']);
